@@ -1,6 +1,6 @@
 import { createConfig, http } from 'wagmi';
 import { base } from 'wagmi/chains';
-import { injected, coinbaseWallet } from '@wagmi/connectors';
+import { injected } from '@wagmi/connectors';
 
 export const wagmiConfig = createConfig({
   chains: [base],
@@ -9,6 +9,5 @@ export const wagmiConfig = createConfig({
   },
   connectors: [
     injected(),
-    coinbaseWallet({ appName: 'Synapse Protocol' }),
   ],
 });

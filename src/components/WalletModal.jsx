@@ -1,24 +1,31 @@
 import { useEffect } from 'react';
 import { useWallet } from './WalletContext';
 
+const hasProvider = typeof window !== 'undefined' && !!window.ethereum;
+const isMobile    = typeof window !== 'undefined' && /Android|iPhone|iPad/i.test(navigator.userAgent);
+
 const WALLETS = [
   {
-    id:      'metamask',
-    name:    'MetaMask',
-    desc:    'Connect using MetaMask browser extension',
-    imgSrc:  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/3840px-MetaMask_Fox.svg.png',
-  },
-  {
-    id:   'coinbase',
-    name: 'Coinbase Wallet',
-    desc: 'Connect using Coinbase Wallet',
-    icon: 'simple-icons:coinbase',
-    iconColor: '#0052FF',
+    id:     'metamask',
+    name:   'MetaMask',
+    desc:   'Connect with MetaMask — mobile & desktop',
+    imgSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/3840px-MetaMask_Fox.svg.png',
   },
 ];
 
 export default function WalletModal() {
   const { open, setOpen, connect, connecting, error } = useWallet();
+
+  const handleConnect = () => {
+    if (!hasProvider) {
+      const url = isMobile
+        ? `https://metamask.app.link/dapp/${window.location.host}${window.location.pathname}`
+        : 'https://metamask.io/download';
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    connect('metamask');
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -58,30 +65,34 @@ export default function WalletModal() {
           </div>
 
           <div className="flex flex-col gap-3">
-            {WALLETS.map(w => (
-              <button
-                key={w.id}
-                onClick={() => connect(w.id)}
-                disabled={!!connecting}
-                className="group flex items-center gap-4 w-full p-4 rounded-2xl bg-black/5 hover:bg-black/10 border border-black/5 transition-all disabled:opacity-50 text-left"
-              >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white border border-black/10 shrink-0">
-                  {w.imgSrc
-                    ? <img src={w.imgSrc} alt={w.name} className="w-7 h-7 object-contain" />
-                    : <iconify-icon icon={w.icon} width="28" style={{ color: w.iconColor }}></iconify-icon>
-                  }
+            <button
+              onClick={handleConnect}
+              disabled={!!connecting}
+              className="group flex items-center gap-4 w-full p-4 rounded-2xl bg-black/5 hover:bg-black/10 border border-black/5 transition-all disabled:opacity-50 text-left"
+            >
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white border border-black/10 shrink-0">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/3840px-MetaMask_Fox.svg.png"
+                  alt="MetaMask"
+                  className="w-7 h-7 object-contain"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="text-base font-medium text-black">MetaMask</div>
+                <div className="text-xs text-zinc-600">
+                  {hasProvider
+                    ? 'Connect using MetaMask'
+                    : isMobile
+                      ? 'Open in MetaMask app'
+                      : 'Install MetaMask to connect'}
                 </div>
-                <div className="flex-1">
-                  <div className="text-base font-medium text-black">{w.name}</div>
-                  <div className="text-xs text-zinc-600">{w.desc}</div>
-                </div>
-                {connecting ? (
-                  <iconify-icon icon="solar:refresh-linear" class="text-black animate-spin" width="22"></iconify-icon>
-                ) : (
-                  <iconify-icon icon="solar:arrow-right-linear" class="text-black group-hover:translate-x-0.5 transition-transform" width="22"></iconify-icon>
-                )}
-              </button>
-            ))}
+              </div>
+              {connecting ? (
+                <iconify-icon icon="solar:refresh-linear" class="text-black animate-spin" width="22"></iconify-icon>
+              ) : (
+                <iconify-icon icon="solar:arrow-right-linear" class="text-black group-hover:translate-x-0.5 transition-transform" width="22"></iconify-icon>
+              )}
+            </button>
           </div>
 
           {error && (

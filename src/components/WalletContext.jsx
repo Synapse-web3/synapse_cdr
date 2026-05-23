@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useState } from 'react';
-import { useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
-import { coinbaseWallet, injected } from '@wagmi/connectors';
+import { useAccount, useConnect, useConnectors, useDisconnect, useSignMessage } from 'wagmi';
 import { siwe, clearAuth } from '../lib/api';
 
 const WalletCtx = createContext(null);
@@ -9,29 +8,28 @@ export function WalletProvider({ children }) {
   const [open, setOpen] = useState(false);
   const [authToken, setAuthToken] = useState(() => localStorage.getItem('synapse:auth') || null);
 
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector: activeConnector } = useAccount();
+  const connectors = useConnectors();
   const { connect, isPending, variables: connectVars, error: connectError } = useConnect();
   const { disconnect: wagmiDisconnect } = useDisconnect();
   const { signMessageAsync } = useSignMessage();
 
   const wallet = isConnected && address
-    ? { address: address.toLowerCase(), provider: connectVars?.connector?.id || 'injected' }
+    ? { address: address.toLowerCase(), provider: activeConnector?.id || connectVars?.connector?.id || 'injected' }
     : null;
 
   const connectWallet = useCallback((provider) => {
-    if (provider === 'metamask' || provider === 'injected') {
-      connect({ connector: injected() });
-    } else if (provider === 'coinbase') {
-      connect({ connector: coinbaseWallet({ appName: 'Synapse Protocol' }) });
-    }
+    const id = 'injected';
+    const connector = connectors.find(c => c.id === id);
+    if (connector) connect({ connector });
     setOpen(false);
-  }, [connect]);
+  }, [connect, connectors]);
 
-  const disconnect = useCallback(async () => {
-    wagmiDisconnect();
+  const disconnect = useCallback(() => {
+    wagmiDisconnect(activeConnector ? { connector: activeConnector } : undefined);
     setAuthToken(null);
     clearAuth();
-  }, [wagmiDisconnect]);
+  }, [wagmiDisconnect, activeConnector]);
 
   const signIn = useCallback(async () => {
     if (!address) throw new Error('Wallet not connected');
