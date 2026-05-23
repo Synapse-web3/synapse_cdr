@@ -1,9 +1,9 @@
 import { keccak256, encodePacked, toBytes, toHex, parseUnits, erc20Abi } from 'viem';
 import { writeContract, waitForTransactionReceipt, readContract } from '@wagmi/core';
 import { wagmiConfig } from './wagmi';
-import SynapseProtocolJson from '../../SynapseProtocol.json';
-import SynapseTokenJson from '../../SynapseToken.json';
-import SynapseIPNFTJson from '../../SynapseIPNFT.json';
+import SynapseProtocolJson from './SynapseProtocol.json';
+import SynapseTokenJson from './SynapseToken.json';
+import SynapseIPNFTJson from './SynapseIPNFT.json';
 
 export const SynapseProtocolAbi = SynapseProtocolJson.abi;
 export const SynapseTokenAbi    = SynapseTokenJson.abi;
