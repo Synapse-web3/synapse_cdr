@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(curl -fsSL https://bun.sh/install)",
+      "Bash(bash)",
+      "Bash(rm -rf ~/.bun && curl -fsSL https://bun.sh/install | bash 2>&1)",
+      "Bash(curl -s http://localhost:8080/src/components/Layout.jsx)",
+      "Bash(node -e \"const swc = require\\('/Users/apple/synapseprotocol/node_modules/@swc/core'\\); swc.transform\\('const x = <div/>', { jsc: { parser: { syntax: 'ecmascript', jsx: true }, transform: { react: { runtime: 'automatic' } } } }\\).then\\(r => console.log\\(r.code\\)\\).catch\\(e => console.error\\('SWC ERROR:', e.message\\)\\)\")",
+      "Bash(pnpm add *)",
+      "Bash(python3 -c ' *)",
+      "Bash(pnpm remove *)",
+      "Bash(node -e \"const w = require\\('/Users/apple/synapseprotocol/node_modules/wagmi'\\); console.log\\(Object.keys\\(w\\).filter\\(k => k.includes\\('injected'\\) || k.includes\\('coinbase'\\) || k.includes\\('Config'\\) || k.includes\\('Account'\\)\\).slice\\(0,10\\)\\)\")",
+      "Bash(node -e \"const c = require\\('/Users/apple/synapseprotocol/node_modules/@wagmi/connectors'\\); console.log\\(Object.keys\\(c\\).filter\\(k => k.includes\\('coinbase'\\) || k.includes\\('injected'\\) || k.includes\\('walletConnect'\\)\\).slice\\(0,10\\)\\)\")",
+      "Bash(node -e \"const w = require\\('/Users/apple/synapseprotocol/node_modules/wagmi'\\); console.log\\(Object.keys\\(w\\).filter\\(k => k.startsWith\\('use'\\)\\).sort\\(\\).slice\\(0,30\\)\\)\")",
+      "Bash(node -e \"const w = require\\('/Users/apple/synapseprotocol/node_modules/wagmi'\\); const r = w.useConnect.toString\\(\\); console.log\\(r.slice\\(0,500\\)\\)\")",
+      "Bash(node -e \"const c = require\\('/Users/apple/synapseprotocol/node_modules/@wagmi/core'\\); console.log\\(Object.keys\\(c\\).filter\\(k=>k.includes\\('write'\\)||k.includes\\('read'\\)||k.includes\\('wait'\\)\\)\\)\")",
+      "Bash(pnpm build *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
+    ],
+    "additionalDirectories": [
+      "/Users/apple/.bun"
+    ]
+  }
+}
