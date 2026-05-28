@@ -3,6 +3,7 @@
 Physical AI infrastructure on Base. Synapse is the on-chain intelligence and attestation layer for drones, ground robots, humanoids and autonomous vehicles — unifying aerial telemetry attestation, a robotic training data marketplace, a hypothesis market for robotics R&D, and an autonomous agent fleet under one Web4 protocol with Proof-of-Physical-Work (PoPW).
 
 ---
+---
 
 ## Overview
 
