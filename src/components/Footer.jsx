@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { toast } from 'sonner';
 
 export default function Footer() {
   return (
@@ -36,7 +35,7 @@ export default function Footer() {
                 <button
                   key={label}
                   type="button"
-                  onClick={() => toast(`${label} — coming soon`)}
+                  onClick={() => {}}
                   className="w-10 h-10 rounded-full bg-black/5 border border-black/10 flex items-center justify-center text-zinc-700 hover:text-black hover:bg-black/10 transition-all"
                   aria-label={label}
                 >
@@ -48,40 +47,37 @@ export default function Footer() {
         </div>
 
         <div className="md:col-span-2 md:col-start-6 flex flex-col gap-3">
-          <h4 className="text-black font-medium text-xs tracking-widest uppercase mb-2 flex items-center gap-2">
+          <h4 className="text-black font-medium text-xs tracking-widest uppercase mb-2">
             Surfaces
-            <span className="bg-amber-400 text-black text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-full leading-none">Soon</span>
           </h4>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Hypothesis Lab</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">BioLLM Marketplace</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Robotic Labs</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Experiment Feed</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">IP-NFT Explorer</span>
+          <Link to="/hypothesis-lab" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Hypothesis Lab</Link>
+          <Link to="/biollm" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">BioLLM Marketplace</Link>
+          <Link to="/labs" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Robotic Labs</Link>
+          <Link to="/feed" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Experiment Feed</Link>
+          <Link to="/ip-nft" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">IP-NFT Explorer</Link>
         </div>
 
         <div className="md:col-span-2 flex flex-col gap-3">
-          <h4 className="text-black font-medium text-xs tracking-widest uppercase mb-2 flex items-center gap-2">
+          <h4 className="text-black font-medium text-xs tracking-widest uppercase mb-2">
             Network
-            <span className="bg-amber-400 text-black text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-full leading-none">Soon</span>
           </h4>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Data Market</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Research Campaigns</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Agent Console</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">My Synapse</span>
+          <Link to="/data-market" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Data Market</Link>
+          <Link to="/campaigns" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Research Campaigns</Link>
+          <Link to="/agents" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Agent Console</Link>
+          <Link to="/dashboard" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">My Synapse</Link>
         </div>
 
         <div className="md:col-span-2 flex flex-col gap-3">
-          <h4 className="text-black font-medium text-xs tracking-widest uppercase mb-2 flex items-center gap-2">
+          <h4 className="text-black font-medium text-xs tracking-widest uppercase mb-2">
             Protocol
-            <span className="bg-amber-400 text-black text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-full leading-none">Soon</span>
           </h4>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Aerial Attestation</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Training Data Market</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Hypothesis Market</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Robotic Lab Network</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">IP-NFT Ecosystem</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">Autonomous Agent Fleet</span>
-          <span className="text-zinc-400 text-sm cursor-not-allowed w-max select-none">$SYNAPSE Token</span>
+          <Link to="/protocol" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Aerial Attestation</Link>
+          <Link to="/data-market" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Training Data Market</Link>
+          <Link to="/hypothesis-lab" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Hypothesis Market</Link>
+          <Link to="/labs" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Robotic Lab Network</Link>
+          <Link to="/ip-nft" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">IP-NFT Ecosystem</Link>
+          <Link to="/agents" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">Autonomous Agent Fleet</Link>
+          <Link to="/dashboard" className="text-zinc-500 text-sm hover:text-black transition-colors w-max">$SYNAPSE Token</Link>
         </div>
       </div>
 

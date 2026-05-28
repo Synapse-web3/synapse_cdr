@@ -37,10 +37,9 @@ export default function GlobalHeader({ onFaucet }) {
   const renderLink = (n, onClick) => {
     if (n.comingSoon) {
       return (
-        <span key={n.to} className="relative inline-flex items-center gap-1.5 font-geist text-zinc-400 px-3 py-2 lg:p-0 cursor-not-allowed select-none">
+        <Link key={n.to} to={n.to} onClick={onClick} className={clsx("hover:text-black transition-colors font-geist px-3 py-2 rounded-xl hover:bg-black/5 lg:p-0 lg:rounded-none lg:hover:bg-transparent", location.pathname === n.to ? "text-black font-medium lg:bg-transparent" : "text-zinc-700")}>
           {n.label}
-          <span className="bg-amber-400 text-black text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-full leading-none">Soon</span>
-        </span>
+        </Link>
       );
     }
     if (n.to.startsWith('#')) {
@@ -80,12 +79,9 @@ export default function GlobalHeader({ onFaucet }) {
             </button>
           )}
 
-          <div className="relative hidden md:inline-flex">
-            <button disabled className="bg-black/40 text-white/60 px-3.5 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium cursor-not-allowed tracking-tight font-geist whitespace-nowrap">
-              Commit Hypothesis
-            </button>
-            <span className="absolute -top-2 -right-2 bg-amber-400 text-black text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-full leading-none">Soon</span>
-          </div>
+          <Link to="/hypothesis-lab" className="hidden md:inline-block bg-black text-white px-3.5 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium hover:bg-zinc-800 transition-colors tracking-tight font-geist whitespace-nowrap">
+            Commit Hypothesis
+          </Link>
 
           <button onClick={() => setOpen(o => !o)} className="lg:hidden w-10 h-10 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-black" aria-label="Menu">
             <iconify-icon icon={open ? "solar:close-circle-linear" : "solar:hamburger-menu-linear"} width="22"></iconify-icon>

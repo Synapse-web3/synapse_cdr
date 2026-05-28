@@ -3,7 +3,6 @@ import { toast } from 'sonner';
 import { formatUnits } from 'viem';
 import PageShell, { Card, DomainTag } from '../components/PageShell';
 import { useWallet } from '../components/WalletContext';
-import { tokenBalance, SYNAPSE_TOKEN_ADDRESS } from '../lib/contracts';
 import { api } from '../lib/api';
 
 const FALLBACK_DATASETS = [
@@ -35,26 +34,9 @@ export default function DataMarket() {
     if (!wallet) { setOpen(true); return; }
 
     setQuerying(d.id);
-    const tId = toast.loading('Checking balance…');
+    const tId = toast.loading(`Querying ${d.name}…`);
     try {
       await requireAuth();
-
-      if (d.priceSynapse) {
-        const required = BigInt(d.priceSynapse);
-        const balance  = await tokenBalance(SYNAPSE_TOKEN_ADDRESS, wallet.address);
-        if (balance < required) {
-          toast.error('Insufficient SYNAPSE balance', {
-            id: tId,
-            action: {
-              label:   'Get SYNAPSE',
-              onClick: () => window.dispatchEvent(new CustomEvent('synapse:faucet')),
-            },
-          });
-          return;
-        }
-      }
-
-      toast.loading(`Querying ${d.name}…`, { id: tId });
 
       const job = await api.post(`/v1/datasets/${d.datasetId ?? d.id}/query`, {
         querySpec: {},

@@ -201,7 +201,6 @@ export default function Features() {
 
           <div data-dir="left" data-tilt className="relative rounded-[2rem] p-[1px] bg-gradient-to-b from-black/40 via-black/20 to-black/80 flex-1 overflow-hidden min-h-[160px] shadow-[0_8px_20px_rgba(0,0,0,0.25)] cursor-not-allowed opacity-75">
             <div className="absolute inset-[1px] bg-gradient-to-b from-zinc-900 to-black backdrop-blur-xl rounded-[calc(2rem-1px)] z-0"></div>
-            <span className="absolute top-3 right-3 z-20 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Coming Soon</span>
             <div className="relative z-10 p-7 h-full flex flex-col justify-between">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-cyan-300/90 mb-3 font-medium">
@@ -218,7 +217,6 @@ export default function Features() {
 
           <div data-dir="left" data-tilt className="relative rounded-[2rem] p-[1px] bg-gradient-to-b from-black/40 via-black/20 to-black/80 flex-1 overflow-hidden min-h-[160px] shadow-[0_8px_20px_rgba(0,0,0,0.25)] cursor-not-allowed opacity-75">
             <div className="absolute inset-[1px] bg-gradient-to-b from-zinc-900 to-black backdrop-blur-xl rounded-[calc(2rem-1px)] z-0"></div>
-            <span className="absolute top-3 right-3 z-20 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Coming Soon</span>
             <div className="relative z-10 p-7 h-full flex flex-col justify-between">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-orange-300/90 mb-3 font-medium">
@@ -237,7 +235,6 @@ export default function Features() {
           <div data-dir="left" data-tilt className="relative rounded-[2rem] p-[1px] bg-gradient-to-b from-black/40 via-black/20 to-black/80 flex-1 overflow-hidden min-h-[160px] shadow-[0_8px_20px_rgba(0,0,0,0.25)] cursor-not-allowed opacity-75">
             <div className="absolute inset-[1px] bg-gradient-to-b from-zinc-900 to-black backdrop-blur-xl rounded-[calc(2rem-1px)] z-0"></div>
             <CanvasGlobe />
-            <span className="absolute top-3 right-3 z-20 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Coming Soon</span>
             <div className="relative z-10 p-7 h-full flex flex-col justify-between pointer-events-none">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-indigo-300/90 mb-3 font-medium">
@@ -259,7 +256,6 @@ export default function Features() {
             <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.6),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.4),transparent_50%)]"></div>
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
           </div>
-          <span className="absolute top-3 right-3 z-20 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Coming Soon</span>
           <div className="relative z-10 h-full p-7 flex flex-col justify-between">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 w-max">
               <iconify-icon icon="solar:shield-check-linear" class="text-emerald-300 text-sm"></iconify-icon>
@@ -287,7 +283,6 @@ export default function Features() {
               <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_70%_30%,rgba(255,210,77,0.4),transparent_55%)]"></div>
             </div>
             <IPSealAnim />
-            <span className="absolute top-3 left-3 z-20 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Coming Soon</span>
             <div className="relative z-10 h-full p-7 flex flex-col justify-between">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 w-max">
                 <iconify-icon icon="solar:hand-money-linear" class="text-amber-300 text-sm"></iconify-icon>
@@ -307,7 +302,6 @@ export default function Features() {
               <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_30%_70%,rgba(0,245,255,0.35),transparent_55%)]"></div>
             </div>
             <FleetAnim />
-            <span className="absolute top-3 left-3 z-20 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Coming Soon</span>
             <div className="relative z-10 h-full p-7 flex flex-col justify-between">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 w-max">
                 <iconify-icon icon="solar:cpu-bolt-linear" class="text-cyan-300 text-sm"></iconify-icon>

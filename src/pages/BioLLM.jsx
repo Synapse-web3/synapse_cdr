@@ -3,7 +3,6 @@ import { toast } from 'sonner';
 import PageShell, { Card } from '../components/PageShell';
 import { useWallet } from '../components/WalletContext';
 import HypothesisPickerModal from '../components/HypothesisPickerModal';
-import { tokenBalance, SYNAPSE_TOKEN_ADDRESS } from '../lib/contracts';
 import { api } from '../lib/api';
 
 const FALLBACK_MODELS = [
@@ -21,14 +20,6 @@ function formatCalls(n) {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1000)      return `${Math.round(n / 1000)}k`;
   return String(n);
-}
-
-async function getSynapseBalance(walletAddress) {
-  try {
-    return await tokenBalance(SYNAPSE_TOKEN_ADDRESS, walletAddress);
-  } catch {
-    return 0n;
-  }
 }
 
 export default function BioLLM() {
@@ -58,27 +49,9 @@ export default function BioLLM() {
   const dispatch = async ({ model: m, hypothesisId }) => {
     setPicking(null);
     setDisp(m.id);
-    const tId = toast.loading('Checking balance…');
+    const tId = toast.loading(`Dispatching ${m.name}…`);
     try {
       await requireAuth();
-
-      // ── Frontend balance check ──────────────────────────────────────────
-      if (m.priceSynapse) {
-        const required = BigInt(m.priceSynapse);
-        const balance  = await getSynapseBalance(wallet.address);
-        if (balance < required) {
-          toast.error('Insufficient SYNAPSE balance', {
-            id:     tId,
-            action: {
-              label:   'Get SYNAPSE',
-              onClick: () => window.dispatchEvent(new CustomEvent('synapse:faucet')),
-            },
-          });
-          return;
-        }
-      }
-
-      toast.loading(`Dispatching ${m.name}…`, { id: tId });
 
       const job = await api.post('/v1/biollm/infer', {
         modelId:      m.modelId ?? m.id,

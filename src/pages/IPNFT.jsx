@@ -5,9 +5,9 @@ import PageShell, { Card, GradePill, DomainTag } from '../components/PageShell';
 import { useWallet } from '../components/WalletContext';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import {
-  hypothesisKey, approveToken, toHex,
-  PROTOCOL_ADDRESS, SYNAPSE_TOKEN_ADDRESS, IPNFT_ADDRESS,
-  MINT_COST, SynapseProtocolAbi,
+  hypothesisKey, toHex,
+  PROTOCOL_ADDRESS, IPNFT_ADDRESS,
+  SynapseProtocolAbi,
   isContractDeployed, basescanTx,
 } from '../lib/contracts';
 import { wagmiConfig } from '../lib/wagmi';
@@ -79,10 +79,7 @@ export default function IPNFT() {
 
         const hypKey = hypothesisKey(wallet.address, hypObj.shortId);
 
-        // 1. Approve 50 SYNAPSE
-        await approveToken(SYNAPSE_TOKEN_ADDRESS, PROTOCOL_ADDRESS, MINT_COST);
-
-        // 2. Mint on-chain
+        // Mint on-chain
         txHash = await writeContract(wagmiConfig, {
           address: PROTOCOL_ADDRESS,
           abi: SynapseProtocolAbi,
@@ -132,13 +129,10 @@ export default function IPNFT() {
       title="IP-NFT Explorer."
       intro="Every IP-NFT can only be minted when (a) the hypothesis commit existed on-chain before the result, (b) the result achieves Grade A or B evidence, and (c) the full experiment chain is logged via ExperimentRecord. Tradeable on OpenSea / Blur — royalties stream to all Contribution NFT holders."
       actions={
-        <div className="relative inline-flex">
-          <button disabled className="bg-black/40 text-white/60 px-5 py-3 rounded-full text-sm font-medium cursor-not-allowed flex items-center gap-2">
-            <iconify-icon icon="solar:medal-ribbon-star-bold"></iconify-icon>
-            Mint IP-NFT
-          </button>
-          <span className="absolute -top-2 -right-2 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Soon</span>
-        </div>
+        <button disabled className="bg-black/40 text-white/60 px-5 py-3 rounded-full text-sm font-medium cursor-not-allowed flex items-center gap-2">
+          <iconify-icon icon="solar:medal-ribbon-star-bold"></iconify-icon>
+          Mint IP-NFT
+        </button>
       }
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
