@@ -83,19 +83,13 @@ export default function CTA() {
           </p>
 
           <div ref={btnsRef} className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
-            <div className="relative inline-flex">
-              <button disabled className="relative overflow-hidden bg-white/40 text-white/50 px-8 py-4 rounded-full text-base font-medium cursor-not-allowed tracking-tight flex justify-center items-center gap-2">
-                <span className="relative z-10">Open Hypothesis Lab</span>
-                <iconify-icon icon="solar:arrow-right-up-linear" class="text-xl relative z-10"></iconify-icon>
-              </button>
-              <span className="absolute -top-2 -right-2 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Soon</span>
-            </div>
-            <div className="relative inline-flex">
-              <button disabled className="relative overflow-hidden bg-white/10 text-white/40 border border-white/10 px-8 py-4 rounded-full text-base font-medium cursor-not-allowed tracking-tight flex justify-center items-center gap-2">
-                <span className="relative z-10">Open Mission Control</span>
-              </button>
-              <span className="absolute -top-2 -right-2 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Soon</span>
-            </div>
+            <Link to="/hypothesis-lab" data-liquid className="relative overflow-hidden bg-white px-8 py-4 rounded-full text-base font-medium tracking-tight flex justify-center items-center gap-2 text-black hover:bg-white/90 transition-colors">
+              <span className="relative z-10">Open Hypothesis Lab</span>
+              <iconify-icon icon="solar:arrow-right-up-linear" class="text-xl relative z-10"></iconify-icon>
+            </Link>
+            <Link to="/labs" data-liquid className="relative overflow-hidden bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full text-base font-medium tracking-tight flex justify-center items-center gap-2 hover:bg-white/20 transition-colors">
+              <span className="relative z-10">Open Mission Control</span>
+            </Link>
           </div>
         </div>
       </div>

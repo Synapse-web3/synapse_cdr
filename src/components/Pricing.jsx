@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import RevealText from './RevealText';
 import { gsap, ScrollTrigger } from '../lib/animations';
 
@@ -122,15 +123,12 @@ export default function Pricing() {
                       </li>
                     ))}
                   </ul>
-                  <div className="relative w-full">
-                    <button
-                      disabled
-                      className={`w-full py-3.5 px-6 rounded-full text-sm font-medium tracking-tight text-center cursor-not-allowed ${isPop ? 'bg-white/40 text-black/40' : 'bg-white/10 text-white/40 border border-white/10'}`}
-                    >
-                      {plan.buttonText}
-                    </button>
-                    <span className="absolute -top-2 -right-2 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Soon</span>
-                  </div>
+                  <Link
+                    to={plan.to}
+                    className={`block w-full py-3.5 px-6 rounded-full text-sm font-medium tracking-tight text-center transition-opacity hover:opacity-80 ${isPop ? 'bg-white text-black' : 'bg-white/20 text-white border border-white/20'}`}
+                  >
+                    {plan.buttonText}
+                  </Link>
                 </div>
               </div>
             </div>

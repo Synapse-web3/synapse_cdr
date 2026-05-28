@@ -3,7 +3,6 @@ import { toast } from 'sonner';
 import { formatUnits } from 'viem';
 import PageShell, { Card, GradePill, DomainTag } from '../components/PageShell';
 import { useWallet } from '../components/WalletContext';
-import { tokenBalance, SYNAPSE_TOKEN_ADDRESS } from '../lib/contracts';
 import { api } from '../lib/api';
 
 const tabs = [
@@ -53,7 +52,6 @@ export default function Dashboard() {
   const [stats, setStats]       = useState(DEFAULT_STATS);
   const [tabData, setTabData]   = useState({});
   const [claiming, setClaiming] = useState(false);
-  const [synOnChain, setSynOnChain] = useState(null);
   const { wallet, requireAuth, setOpen, disconnect } = useWallet();
   const short = wallet?.address ? `${wallet.address.slice(0,6)}…${wallet.address.slice(-4)}` : '';
 
@@ -68,13 +66,6 @@ export default function Dashboard() {
 
   useEffect(() => { loadStats(); }, [loadStats]);
 
-  // Fetch on-chain SYNAPSE balance (ERC-20 balanceOf)
-  useEffect(() => {
-    if (!wallet?.address) { setSynOnChain(null); return; }
-    tokenBalance(SYNAPSE_TOKEN_ADDRESS, wallet.address)
-      .then(raw => setSynOnChain(Number(formatUnits(raw, 6))))
-      .catch(() => setSynOnChain(null));
-  }, [wallet?.address]);
 
   const loadTab = useCallback(async (key) => {
     if (!wallet || tabData[key]) return;
@@ -115,7 +106,6 @@ export default function Dashboard() {
   };
 
   const displayStats = [
-    { label: '$SYN balance',      value: synOnChain !== null ? Number(synOnChain).toLocaleString() : '—', sub: synOnChain !== null ? 'Base · on-chain' : 'Connect wallet' },
     { label: 'Claimable USDC',    value: fmt(stats.claimableUsdc),                                        sub: 'Royalties + staking' },
     { label: 'Active commits',    value: String(stats.activeCommits),                                      sub: `${stats.commitsAwaitingReveal} awaiting reveal` },
     { label: 'Royalties to date', value: Math.round(stats.lifetimeRoyaltiesUsdc).toLocaleString(),         sub: 'USDC lifetime' },

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from '../lib/animations';
 import { useWallet } from './WalletContext';
 
@@ -149,12 +150,9 @@ export default function Hero() {
           <div ref={ctaRef} className="mt-8 flex flex-col items-center gap-2">
             {wallet ? (
               <>
-                <div className="relative inline-flex">
-                  <button disabled className="bg-black/40 text-white/60 px-6 py-3.5 rounded-full text-sm font-medium cursor-not-allowed tracking-tight font-geist">
-                    Commit a Hypothesis
-                  </button>
-                  <span className="absolute -top-2 -right-2 bg-amber-400 text-black text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full">Soon</span>
-                </div>
+                <Link to="/hypothesis-lab" className="bg-black text-white px-6 py-3.5 rounded-full text-sm font-medium hover:bg-zinc-800 hover:scale-105 active:scale-95 transition-all duration-300 tracking-tight font-geist">
+                  Commit a Hypothesis
+                </Link>
                 <span className="text-xs text-zinc-500 font-mono">{short}</span>
               </>
             ) : (

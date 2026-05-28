@@ -5,8 +5,8 @@ import PageShell, { Card, StatusDot } from '../components/PageShell';
 import { useWallet } from '../components/WalletContext';
 import {
   labKey, approveToken,
-  PROTOCOL_ADDRESS, SYNAPSE_TOKEN_ADDRESS, USDC_ADDRESS,
-  ONE_SYNAPSE, ONE_USDC, SynapseProtocolAbi,
+  PROTOCOL_ADDRESS, USDC_ADDRESS,
+  ONE_USDC, SynapseProtocolAbi,
   isContractDeployed, basescanTx,
 } from '../lib/contracts';
 import { wagmiConfig } from '../lib/wagmi';
@@ -53,12 +53,9 @@ export default function Labs() {
     try {
       const slotStart  = BigInt(Math.floor(Date.now() / 1000) + 86_400);
       const slotEnd    = slotStart + 7_200n;
-      const costUsdc   = 100n * ONE_USDC;
-      const feeSynapse = 5n * ONE_SYNAPSE;
+      const costUsdc = 100n * ONE_USDC;
 
-      // Approve USDC and SYNAPSE fee
       await approveToken(USDC_ADDRESS, PROTOCOL_ADDRESS, costUsdc);
-      await approveToken(SYNAPSE_TOKEN_ADDRESS, PROTOCOL_ADDRESS, feeSynapse);
 
       const txHash = await writeContract(wagmiConfig, {
         address: PROTOCOL_ADDRESS,
@@ -70,7 +67,7 @@ export default function Labs() {
             slotStart,
             slotEnd,
             costUsdc,
-            feeSynapse,
+            feeSynapse: 0n,
             hypothesis: '0x0000000000000000000000000000000000000000000000000000000000000000',
           },
         ],

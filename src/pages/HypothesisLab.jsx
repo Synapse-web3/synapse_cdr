@@ -1,14 +1,14 @@
 import { useEffect, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { toast } from 'sonner';
-import { writeContract, waitForTransactionReceipt } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
 import PageShell, { Card, GradePill, DomainTag } from '../components/PageShell';
 import { useWallet } from '../components/WalletContext';
 import {
-  saltedHash, approveToken, toHex,
-  PROTOCOL_ADDRESS, SYNAPSE_TOKEN_ADDRESS, COMMIT_COST,
+  saltedHash, toHex,
+  PROTOCOL_ADDRESS,
   GRADE, domainIndex, SynapseProtocolAbi,
-  isContractDeployed, basescanAccount, basescanTx,
+  isContractDeployed, basescanTx,
 } from '../lib/contracts';
 import { wagmiConfig } from '../lib/wagmi';
 import { api } from '../lib/api';
@@ -95,11 +95,6 @@ export default function HypothesisLab() {
       let txHash = null;
 
       if (isContractDeployed(PROTOCOL_ADDRESS)) {
-        // 1. Approve 10 SYNAPSE
-        toast.loading('Approving SYNAPSE…', { id: tId });
-        await approveToken(SYNAPSE_TOKEN_ADDRESS, PROTOCOL_ADDRESS, COMMIT_COST);
-
-        // 2. Commit on-chain
         toast.loading('Committing on Base…', { id: tId });
         txHash = await writeContract(wagmiConfig, {
           address: PROTOCOL_ADDRESS,
@@ -112,7 +107,6 @@ export default function HypothesisLab() {
             saltedHash:  commitment,
           }],
         });
-        await waitForTransactionReceipt(wagmiConfig, { hash: txHash });
       }
 
       toast.loading('Indexing on backend…', { id: tId });
@@ -129,9 +123,9 @@ export default function HypothesisLab() {
         citations:  citations.split(/[\s,]+/).filter(Boolean),
       });
 
-      toast.success('Hypothesis committed on Base', {
+      toast.success('Hypothesis committed', {
         id: tId,
-        description: `${shortIdHex.slice(0, 10)}… · 10 SYNAPSE burned${txHash ? ` · tx ${txHash.slice(0, 10)}…` : ''}`,
+        description: `ID: ${shortIdHex.slice(0, 10)}…${txHash ? ` · tx ${txHash.slice(0, 10)}…` : ''}`,
         action: txHash ? {
           label: 'View on-chain',
           onClick: () => window.open(basescanTx(txHash), '_blank', 'noreferrer'),
@@ -139,7 +133,7 @@ export default function HypothesisLab() {
       });
 
       setText(''); setTarget(''); setCitations('');
-      setCommits(prev => [{
+      const newCommit = {
         id:          indexed.id,
         shortId:     shortIdHex,
         txSig:       txHash || '',
@@ -150,7 +144,8 @@ export default function HypothesisLab() {
         saltedHash:  commitment,
         status:      'COMMITTED',
         createdAt:   new Date().toISOString(),
-      }, ...prev]);
+      };
+      setCommits(prev => [newCommit, ...prev.filter(c => c.id !== newCommit.id)]);
     } catch (e) {
       toast.error(e?.message || 'Commit failed', { id: tId });
     } finally {
@@ -168,7 +163,7 @@ export default function HypothesisLab() {
         <div className="lg:col-span-3">
           <Card dark>
             <h2 className="text-white text-xl font-medium mb-1">New ATL Commitment</h2>
-            <p className="text-zinc-400 text-sm mb-6">10 SYNAPSE will be burned on commit. PoP-Shield biosafety scan runs automatically.</p>
+            <p className="text-zinc-400 text-sm mb-6">PoP-Shield biosafety scan runs automatically on commit.</p>
 
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-2">
@@ -234,13 +229,6 @@ export default function HypothesisLab() {
               ))}
             </ul>
           </Card>
-          <Card>
-            <h3 className="text-black font-medium mb-4">Cost</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-light text-black">10</span>
-              <span className="text-zinc-500 text-sm">SYNAPSE burned on commit</span>
-            </div>
-          </Card>
         </div>
       </div>
 
@@ -254,7 +242,9 @@ export default function HypothesisLab() {
             <table className="w-full text-sm">
               <thead className="text-[10px] uppercase tracking-widest text-zinc-500 border-b border-black/10">
                 <tr>
-                  <th className="text-left p-4">Hash</th>
+                  <th className="text-left p-4">
+                    <span title="keccak256(salt + hypothesis text) — a content fingerprint, not a transaction hash">Commit Hash</span>
+                  </th>
                   <th className="text-left p-4">Domain</th>
                   <th className="text-left p-4">Grade</th>
                   <th className="text-left p-4">Status</th>
